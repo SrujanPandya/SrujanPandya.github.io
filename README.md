@@ -1,37 +1,572 @@
-## Welcome to GitHub Pages
+<header id="header">
 
-You can use the [editor on GitHub](https://github.com/SrujanPandya/SrujanPandya.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+<div class="intro">
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+<div class="overlay">
 
-### Markdown
+<div class="container">
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+<div class="row">
 
-```markdown
-Syntax highlighted code block
+<div class="col-xs-12 col-md-8">
 
-# Header 1
-## Header 2
-### Header 3
+<div class="intro-text">
 
-- Bulleted
-- List
+# Jonathan Doe
 
-1. Numbered
-2. List
+Photographer / Director
 
-**Bold** and _Italic_ and `Code` text
+[Portfolio](#portfolio) [About Me](#contact)</div>
 
-[Link](url) and ![Image](src)
-```
+</div>
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+</div>
 
-### Jekyll Themes
+</div>
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/SrujanPandya/SrujanPandya.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+</div>
 
-### Support or Contact
+</div>
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+</header>
+
+<div id="portfolio">
+
+<div class="container">
+
+<div class="section-title">
+
+## Portfolio
+
+</div>
+
+<div class="categories">
+
+*   1.  [All](#)
+    2.  [Lorem Ipsum](#)
+    3.  [Dolor Sit](#)
+    4.  [Adipiscing Elit](#)
+
+</div>
+
+<div class="row">
+
+<div class="portfolio-items">
+
+<div class="col-sm-6 col-md-4 lorem">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/01-small.jpg)](img/portfolio/01-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 adipiscing">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/02-small.jpg)](img/portfolio/02-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 lorem">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/03-small.jpg)](img/portfolio/03-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 lorem">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/04-small.jpg)](img/portfolio/04-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 adipiscing">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/05-small.jpg)](img/portfolio/05-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 dolor">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/06-small.jpg)](img/portfolio/06-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 dolor">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/07-small.jpg)](img/portfolio/07-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 lorem">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/08-small.jpg)](img/portfolio/08-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 adipiscing">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/09-small.jpg)](img/portfolio/09-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 adipiscing">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/10-small.jpg)](img/portfolio/10-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 adipiscing">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/11-small.jpg)](img/portfolio/11-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 lorem">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/12-small.jpg)](img/portfolio/12-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 adipiscing">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/13-small.jpg)](img/portfolio/13-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 dolor">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/14-small.jpg)](img/portfolio/14-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 dolor">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/15-small.jpg)](img/portfolio/15-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 lorem">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/16-small.jpg)](img/portfolio/16-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 adipiscing">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/17-small.jpg)](img/portfolio/17-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+<div class="col-sm-6 col-md-4 lorem">
+
+<div class="portfolio-item">
+
+<div class="hover-bg">[<div class="hover-text">
+
+<div class="overlay-caption">
+
+<div class="overlay-content">
+
+#### Project Name
+
+</div>
+
+</div>
+
+</div>
+
+![Project Title](img/portfolio/18-small.jpg)](img/portfolio/18-large.jpg "Project Title") </div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="contact">
+
+<div class="container">
+
+## About Me
+
+<div class="col-md-6">
+
+<div class="section-title">
+
+<div class="row">![](img/about.jpg)
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam. Sed commodo nibh ante facilisis bibendum dolor feugiat at. Duis sed dapibus leo nec ornare diam commodo nibh.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam. Sed commodo nibh ante facilisis bibendum dolor feugiat at. Duis sed dapibus leo nec ornare diam commodo nibh.
+
+<div class="social">
+
+*   [](#)
+*   [](#)
+*   [](#)
+*   [](#)
+*   [](#)
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-5 col-md-offset-1">
+
+<div class="section-title">
+
+For inquiries or collaborations please contact me by email at **info@company.com** or fill out the form below.
+
+</div>
+
+<form name="sentMessage" id="contactForm" novalidate="">
+
+<div class="row">
+
+<div class="col-md-6">
+
+<div class="form-group"><input type="text" id="name" class="form-control" placeholder="Name" required="required"></div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="form-group"><input type="email" id="email" class="form-control" placeholder="Email" required="required"></div>
+
+</div>
+
+</div>
+
+<div class="form-group"><textarea name="message" id="message" class="form-control" rows="4" placeholder="Message" required=""></textarea></div>
+
+<button type="submit" class="btn btn-default btn-lg">Send Message</button></form>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="footer">
+
+<div class="container">
+
+© 2016 Jonathan Doe. All rights reserved.
+
+</div>
+
+</div>
