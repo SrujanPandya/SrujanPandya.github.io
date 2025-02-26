@@ -7,18 +7,6 @@
 		<title>Srujan Pandya</title>
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link rel="stylesheet" href="assets/css/darkmode.css" />
-    	<script>
-			function toggleDarkMode() {
-				document.body.classList.toggle("dark-mode");
-				localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode"));
-			}
-			
-			window.onload = function() {
-				if (localStorage.getItem("dark-mode") === "true") {
-					document.body.classList.add("dark-mode");
-				}
-			}
-    	</script>
     	<style>
 			.dark-mode {
 				background-color: #121212;
@@ -51,7 +39,6 @@
 		</style>
 	</head>
 	<body class="is-preload">
-
 		<!-- Wrapper -->
 			<button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
 			<div id="wrapper">
@@ -295,6 +282,18 @@
 			</div>
 
 		<!-- Scripts -->
+			<script>
+				function toggleDarkMode() {
+					document.body.classList.toggle("dark-mode");
+					localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode"));
+				}
+				
+				window.onload = function() {
+					if (localStorage.getItem("dark-mode") === "true") {
+						document.body.classList.add("dark-mode");
+					}
+				}
+			</script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
