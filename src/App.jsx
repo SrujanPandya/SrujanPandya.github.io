@@ -18,7 +18,7 @@ import {
 
 const App = () => {
     const [activeTab, setActiveTab] = useState('About');
-    const [isDark, setIsDark] = useState(false);
+    const [isDark, setIsDark] = useState(true);
 
     // Synchronize theme with local preference if needed, 
     // though we default to light for the first load.
@@ -134,8 +134,8 @@ const App = () => {
                                     key={tab.name}
                                     onClick={() => setActiveTab(tab.name)}
                                     className={`text-sm font-medium transition-colors ${activeTab === tab.name
-                                            ? 'text-indigo-600 dark:text-indigo-400'
-                                            : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                                        ? 'text-indigo-600 dark:text-indigo-400'
+                                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                                         }`}
                                 >
                                     {tab.name}
