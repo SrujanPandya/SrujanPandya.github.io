@@ -170,7 +170,7 @@ const App = () => {
                                         Engineering at the intersection of <span className="italic text-indigo-700 dark:text-indigo-400 underline decoration-indigo-200 dark:decoration-indigo-900 underline-offset-8">multiscale modeling</span> and robotics.
                                     </h1>
                                     <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-10">
-                                        I'm a PhD student at the <span className="font-semibold text-slate-800 dark:text-slate-200">University at Buffalo</span> within the <a href="https://sail-yong.github.io/">SaIL</href> Lab.
+                                        I'm a PhD student at the <span className="font-semibold text-slate-800 dark:text-slate-200">University at Buffalo</span> within the <a href="https://sail-yong.github.io/">SaIL</a> Lab.
                                         My work investigates the computational foundations of electrospray deposition and soft microrobotics,
                                         aiming to bridge the gap between microscopic physics and macroscopic mechanical utility.
                                     </p>
