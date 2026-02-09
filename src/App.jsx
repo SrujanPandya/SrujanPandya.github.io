@@ -42,7 +42,7 @@ const App = () => {
             color: "border-indigo-500"
         },
         {
-            institution: "University of Illinois Urbana Champaign (UIUC)",
+            institution: "University of Illinois at Urbana-Champaign (UIUC)",
             degree: "MEng in Mechanical Engineering",
             focus: "Robotics and Robust Adaptive Control",
             period: "Aug 2023 - Dec 2024",
@@ -95,7 +95,7 @@ const App = () => {
         },
         {
             title: "Joint Impedance Control",
-            org: "IIT / Timetooth",
+            org: "IIT / Timetooth Technologies",
             tags: ["Dynamics", "Control Logic", "Robotics"],
             desc: "Integrated 2-DOF robot dynamics to simulate assisted lower-limb motion for medical rehabilitation."
         }
@@ -124,7 +124,7 @@ const App = () => {
                 <nav className="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
                     <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
                         <div className="flex flex-col">
-                            <span className="font-semibold text-lg tracking-tight text-slate-900 dark:text-white">Srujan Mayank Pandya</span>
+                            <span className="font-semibold text-lg tracking-tight text-slate-900 dark:text-white">Srujan Pandya</span>
                             <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-bold tracking-[0.2em] uppercase">PhD Researcher</span>
                         </div>
 
@@ -170,7 +170,7 @@ const App = () => {
                                         Engineering at the intersection of <span className="italic text-indigo-700 dark:text-indigo-400 underline decoration-indigo-200 dark:decoration-indigo-900 underline-offset-8">multiscale modeling</span> and robotics.
                                     </h1>
                                     <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-10">
-                                        I am a PhD student at the <span className="font-semibold text-slate-800 dark:text-slate-200">University at Buffalo</span> within the SalL Lab.
+                                        I'm a PhD student at the <span className="font-semibold text-slate-800 dark:text-slate-200">University at Buffalo</span> within the <a href="https://sail-yong.github.io/">SaIL</href> Lab.
                                         My work investigates the computational foundations of electrospray deposition and soft microrobotics,
                                         aiming to bridge the gap between microscopic physics and macroscopic mechanical utility.
                                     </p>
@@ -361,8 +361,8 @@ const App = () => {
                 <footer className="max-w-5xl mx-auto px-6 py-16 mt-20 border-t border-slate-200 dark:border-slate-800">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-8">
                         <div className="text-center md:text-left">
-                            <p className="text-sm font-bold text-slate-900 dark:text-white">Srujan Mayank Pandya</p>
-                            <p className="text-[10px] text-slate-400 uppercase tracking-widest mt-1">PhD Student & Mechanical Engineer</p>
+                            <p className="text-sm font-bold text-slate-900 dark:text-white">Srujan Pandya</p>
+                            <p className="text-[10px] text-slate-400 uppercase tracking-widest mt-1">PhD Student, Mechanical Engineering</p>
                             <p className="text-[10px] text-slate-400 mt-4 italic">Built for precision and performance.</p>
                         </div>
                         <div className="flex gap-8">
