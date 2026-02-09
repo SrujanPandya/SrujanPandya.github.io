@@ -70,13 +70,13 @@ const App = () => {
             role: "Mechanical Design Intern",
             company: "Sulzer Inc",
             period: "Jul 2024 - Aug 2024",
-            desc: "Developed CAD features in Onshape using FeatureScript; conducted modal and stress analysis on rotating components."
+            desc: "Developed and deployed customized CAD features (transferable to any pump model) on Onshape using FeatureScript, reducing time coming down the product pipeline to ~30-60 seconds (previously taking ~10-15 minutes on Siemens NX pipeline)."
         },
         {
             role: "CAE Intern",
             company: "L&T Technology Services Ltd",
             period: "Apr 2023 - Jul 2023",
-            desc: "Structural and thermal analyses on automotive electronic components using ANSYS and Python/APDL automation."
+            desc: "Structural, modal, and thermal analyses on electronic and automotive components (busbars, BDUs, etc.), snapfits, and radiators using ANSYS Mechanical + Python workflow."
         }
     ];
 
@@ -86,6 +86,7 @@ const App = () => {
             org: "Schlumberger (SLB)",
             tags: ["Python", "Autoencoders", "Signal Processing"],
             desc: "Developed lightweight CNN-Autoencoder models for LWD sensors to optimize real-time data transmission."
+            link: "https://drive.google.com/file/d/17Jk5EkDvK5k5azNoBadxWGcp781tPLn9/view?usp=sharing"
         },
         {
             title: "UR3 Card Matching Bot",
@@ -119,8 +120,8 @@ const App = () => {
     const socialLinks = [
     { name: 'Email', url: 'mailto:srujanma@buffalo.edu' },
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/srujanpandya' },
-    { name: 'Substack', url: 'https://yourname.substack.com' }, // Update with your link
-    { name: 'GitHub', url: 'https://github.com/yourusername' },   // Update with your link
+    { name: 'Substack', url: 'https://srujanpandya.substack.com' }, 
+    { name: 'GitHub', url: 'https://github.com/SrujanPandya' },   
     
     ];    
 
@@ -262,11 +263,11 @@ const App = () => {
                                         </div>
                                     </div>
                                     <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8 max-w-2xl text-lg">
-                                        My current investigations focus on the computational mechanics of <strong>Electrospray Deposition</strong> and the development of
+                                        My current investigations focus on the computational mechanics of <strong>Electrospray Deposition</strong> and the development of 
                                         <strong>Soft Microrobotics</strong>. We leverage HPC to simulate complex fluid-structure interactions, aiming for predictive control over micro-scale manufacturing processes.
                                     </p>
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                        {['Particle Dynamics', 'Soft Actuators', 'Scaling Laws'].map((theme, i) => (
+                                        {['Electrohydrodynamics', 'Microswimmers', 'Nanoparticle Aggregates'].map((theme, i) => (
                                             <div key={i} className="p-5 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-transparent hover:border-indigo-500/20 transition-colors">
                                                 <span className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Theme 0{i + 1}</span>
                                                 <span className="font-bold text-slate-800 dark:text-slate-200">{theme}</span>
@@ -315,9 +316,15 @@ const App = () => {
                                                 <h3 className="font-bold text-xl text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{proj.title}</h3>
                                                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.15em] mt-1">{proj.org}</p>
                                             </div>
-                                            <div className="w-10 h-10 rounded-full flex items-center justify-center bg-slate-50 dark:bg-slate-800 text-slate-400 group-hover:text-indigo-500 transition-colors">
+                                            <a 
+                                                href={proj.link} 
+                                                target="_blank" 
+                                                rel="noopener noreferrer"
+                                                className="w-10 h-10 rounded-full flex items-center justify-center bg-slate-50 dark:bg-slate-800 text-slate-400 hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-900/30 dark:hover:text-indigo-400 transition-all"
+                                                aria-label={`View ${proj.title} source`}
+                                            >
                                                 <ExternalLink size={18} />
-                                            </div>
+                                            </a>
                                         </div>
                                         <p className="text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">
                                             {proj.desc}
