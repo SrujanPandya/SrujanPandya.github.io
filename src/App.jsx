@@ -85,20 +85,22 @@ const App = () => {
             title: "ML Feature Compression",
             org: "Schlumberger (SLB)",
             tags: ["Python", "Autoencoders", "Signal Processing"],
-            desc: "Developed lightweight CNN-Autoencoder models for LWD sensors to optimize real-time data transmission."
+            desc: "Developed lightweight CNN-Autoencoder models for LWD sensors to optimize real-time data transmission.",
             link: "https://drive.google.com/file/d/17Jk5EkDvK5k5azNoBadxWGcp781tPLn9/view?usp=sharing"
         },
         {
             title: "UR3 Card Matching Bot",
             org: "UIUC",
             tags: ["ROS", "OpenCV", "Python"],
-            desc: "Automated a memory card-matching game using UR3 arm and computer vision template matching."
+            desc: "Automated a memory card-matching game using UR3 arm and computer vision template matching.",
+            link: "https://youtube.com/watch?v=rH_-TJP46nA&feature=shared"
         },
         {
             title: "Joint Impedance Control",
             org: "IIT / Timetooth Technologies",
             tags: ["Dynamics", "Control Logic", "Robotics"],
-            desc: "Integrated 2-DOF robot dynamics to simulate assisted lower-limb motion for medical rehabilitation."
+            desc: "Integrated 2-DOF robot dynamics to simulate assisted lower-limb motion for medical rehabilitation.",
+            link: "https://drive.google.com/file/d/1He_MOijPhOJEuEBwzhit12JaBKl9a3q4/view?usp=sharing"
         }
     ];
 
