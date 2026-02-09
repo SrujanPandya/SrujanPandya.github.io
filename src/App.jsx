@@ -116,6 +116,14 @@ const App = () => {
         }
     ];
 
+    const socialLinks = [
+    { name: 'Email', url: 'mailto:srujanma@buffalo.edu' },
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/srujanpandya' },
+    { name: 'Substack', url: 'https://yourname.substack.com' }, // Update with your link
+    { name: 'GitHub', url: 'https://github.com/yourusername' },   // Update with your link
+    
+    ];    
+
     return (
         <div className={`${isDark ? 'dark' : ''}`}>
             <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300 selection:bg-indigo-100 dark:selection:bg-indigo-900">
@@ -154,7 +162,7 @@ const App = () => {
                             <div className="h-4 w-[1px] bg-slate-200 dark:bg-slate-800 hidden sm:block"></div>
                             <div className="flex items-center gap-4 text-slate-400">
                                 <a href="mailto:srujanma@buffalo.edu" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"><Mail size={18} /></a>
-                                <a href="#" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"><Linkedin size={18} /></a>
+                                <a href="https://www.linkedin.com/in/srujanpandya" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"><Linkedin size={18} /></a>
                             </div>
                         </div>
                     </div>
@@ -366,10 +374,16 @@ const App = () => {
                             <p className="text-[10px] text-slate-400 mt-4 italic">Built for precision and performance.</p>
                         </div>
                         <div className="flex gap-8">
-                            {['Email', 'LinkedIn', 'ResearchGate', 'GitHub'].map(link => (
-                                <a key={link} href="#" className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                                    {link}
-                                </a>
+                            {socialLinks.map((link) => (
+                            <a 
+                            key={link.name} 
+                            href={link.url} 
+                            target={link.name !== 'Email' ? "_blank" : undefined}
+                            rel="noopener noreferrer"
+                            className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                            >
+                            {link.name}
+                            </a>
                             ))}
                         </div>
                     </div>
