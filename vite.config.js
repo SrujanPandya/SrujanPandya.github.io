@@ -7,5 +7,5 @@ export default defineConfig({
   // base: './' ensures assets use relative paths, which is required for
   // GitHub Pages when the repo is NOT username.github.io (i.e. a project repo).
   // If you deploy to username.github.io, you can set this to '/'.
-  base: './',
+  base: '/',
 });
