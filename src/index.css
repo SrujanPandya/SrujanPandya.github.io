@@ -1,0 +1,81 @@
+/* Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base Styles ─────────────────────────────────────────────────────────── */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    /* Match the warm oat background so there's no flash of white on load */
+    background-color: #F4F1EA;
+    color: #2D2D2D;
+    /* Improve text rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Smooth focus outlines for accessibility */
+  :focus-visible {
+    outline: 2px solid #8E5342;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+/* ─── Custom Utilities ────────────────────────────────────────────────────── */
+
+@layer utilities {
+  /* Tailwind v3 ships animate-in / slide-in / fade-in only via the
+     official animation plugin. Since we're not using it, we define the
+     keyframes and utilities manually so the classes in the components work. */
+
+  .animate-in {
+    animation-fill-mode: both;
+  }
+
+  .fade-in {
+    animation-name: fadeIn;
+  }
+
+  .zoom-in {
+    animation-name: zoomFadeIn;
+  }
+
+  .slide-in-from-bottom-2 {
+    animation-name: slideInFromBottom2;
+  }
+
+  .duration-500 {
+    animation-duration: 500ms;
+  }
+
+  .duration-700 {
+    animation-duration: 700ms;
+  }
+
+  .duration-1000 {
+    animation-duration: 1000ms;
+  }
+}
+
+/* ─── Keyframes ───────────────────────────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes zoomFadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInFromBottom2 {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
