@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Palette Switcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ui-bg: #1a1a1a;
+      --ui-surface: #242424;
+      --ui-border: #333;
+      --ui-text: #e0e0e0;
+      --ui-muted: #888;
+      --ui-accent: #6e9ef5;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--ui-bg);
+      color: var(--ui-text);
+      display: flex;
+      min-height: 100vh;
+      gap: 0;
+    }
+
+    /* ── LEFT PANEL ──────────────────────────────────────────── */
+    .sidebar {
+      width: 320px;
+      min-width: 320px;
+      background: var(--ui-surface);
+      border-right: 1px solid var(--ui-border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 16px;
+      border-bottom: 1px solid var(--ui-border);
+    }
+
+    .sidebar-header h1 {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ui-muted);
+      margin-bottom: 4px;
+    }
+
+    .sidebar-header p {
+      font-size: 12px;
+      color: var(--ui-muted);
+      line-height: 1.5;
+    }
+
+    .palette-list {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .palette-card {
+      background: #2c2c2c;
+      border: 1.5px solid transparent;
+      border-radius: 12px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .palette-card:hover {
+      border-color: #555;
+      transform: translateY(-1px);
+    }
+
+    .palette-card.active {
+      border-color: var(--ui-accent);
+      background: #1e2a3a;
+    }
+
+    .palette-card-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ui-text);
+      margin-bottom: 3px;
+    }
+
+    .palette-card-desc {
+      font-size: 11px;
+      color: var(--ui-muted);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .palette-swatches {
+      display: flex;
+      gap: 6px;
+    }
+
+    .swatch {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* ── HEX PANEL ──────────────────────────────────────────── */
+    .hex-panel {
+      padding: 12px;
+      border-top: 1px solid var(--ui-border);
+      margin-top: auto;
+    }
+
+    .hex-panel h3 {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ui-muted);
+      margin-bottom: 10px;
+    }
+
+    .hex-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .hex-label {
+      font-size: 11px;
+      color: var(--ui-muted);
+    }
+
+    .hex-value {
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      background: #333;
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: #ccc;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .hex-value:hover {
+      background: #444;
+      color: #fff;
+    }
+
+    .copy-hint {
+      font-size: 10px;
+      color: var(--ui-muted);
+      text-align: center;
+      margin-top: 8px;
+      opacity: 0.7;
+    }
+
+    .apply-btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 10px;
+      background: var(--ui-accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+
+    .apply-btn:hover { opacity: 0.85; }
+
+    /* ── PREVIEW PANE ──────────────────────────────────────── */
+    .preview {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .preview-bar {
+      background: var(--ui-surface);
+      border-bottom: 1px solid var(--ui-border);
+      padding: 10px 20px;
+      font-size: 11px;
+      color: var(--ui-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .preview-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ui-accent);
+      display: inline-block;
+    }
+
+    .preview-frame {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    /* ── MOCK PORTFOLIO ─────────────────────────────────────── */
+    .mock-site {
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    .mock-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--preview-border);
+      margin-bottom: 64px;
+    }
+
+    .mock-nav-name {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--preview-text);
+      letter-spacing: -0.01em;
+    }
+
+    .mock-nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .mock-nav-link {
+      font-size: 12px;
+      color: var(--preview-muted);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .mock-hero {
+      margin-bottom: 80px;
+    }
+
+    .mock-tag {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--preview-accent);
+      margin-bottom: 16px;
+    }
+
+    .mock-hero-title {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 38px;
+      line-height: 1.2;
+      color: var(--preview-text);
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    .mock-hero-sub {
+      font-size: 15px;
+      color: var(--preview-muted);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    .mock-btn {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 11px 28px;
+      background: var(--preview-accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+
+    .mock-section-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--preview-muted);
+      margin-bottom: 24px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--preview-border);
+    }
+
+    .mock-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+
+    .mock-card {
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid var(--preview-border);
+      background: var(--preview-card);
+    }
+
+    .mock-card-tag {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--preview-accent);
+      margin-bottom: 8px;
+    }
+
+    .mock-card-title {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 16px;
+      color: var(--preview-text);
+      margin-bottom: 8px;
+    }
+
+    .mock-card-desc {
+      font-size: 12px;
+      color: var(--preview-muted);
+      line-height: 1.6;
+    }
+
+    .mock-footer {
+      padding-top: 32px;
+      border-top: 1px solid var(--preview-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mock-footer-name {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 13px;
+      color: var(--preview-muted);
+    }
+
+    .mock-footer-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .mock-footer-link {
+      font-size: 11px;
+      color: var(--preview-muted);
+      text-decoration: none;
+    }
+
+    /* ── TOAST ──────────────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 12px;
+      transition: transform 0.3s ease;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h1>Palette Switcher</h1>
+    <p>Click a palette to preview it live. Click any hex code to copy it.</p>
+  </div>
+
+  <div class="palette-list" id="paletteList"></div>
+
+  <div class="hex-panel">
+    <h3>Hex Codes</h3>
+    <div class="hex-row">
+      <span class="hex-label">BG</span>
+      <span class="hex-value" id="hexBg" onclick="copyHex(this)">—</span>
+    </div>
+    <div class="hex-row">
+      <span class="hex-label">Text</span>
+      <span class="hex-value" id="hexText" onclick="copyHex(this)">—</span>
+    </div>
+    <div class="hex-row">
+      <span class="hex-label">Accent</span>
+      <span class="hex-value" id="hexAccent" onclick="copyHex(this)">—</span>
+    </div>
+    <div class="hex-row">
+      <span class="hex-label">Muted</span>
+      <span class="hex-value" id="hexMuted" onclick="copyHex(this)">—</span>
+    </div>
+    <div class="hex-row">
+      <span class="hex-label">Card BG</span>
+      <span class="hex-value" id="hexCard" onclick="copyHex(this)">—</span>
+    </div>
+    <div class="hex-row">
+      <span class="hex-label">Border</span>
+      <span class="hex-value" id="hexBorder" onclick="copyHex(this)">—</span>
+    </div>
+    <p class="copy-hint">Click any value to copy</p>
+    <button class="apply-btn" onclick="showApplyInstructions()">📋 How to Apply</button>
+  </div>
+</div>
+
+<!-- PREVIEW -->
+<div class="preview">
+  <div class="preview-bar">
+    <span class="preview-dot"></span>
+    Live Preview — <span id="previewLabel">Select a palette</span>
+  </div>
+  <div class="preview-frame" id="previewFrame">
+    <div class="mock-site">
+      <nav class="mock-nav">
+        <span class="mock-nav-name">Srujan Pandya</span>
+        <div class="mock-nav-links">
+          <a class="mock-nav-link" href="#">Research</a>
+          <a class="mock-nav-link" href="#">Projects</a>
+          <a class="mock-nav-link" href="#">About</a>
+        </div>
+      </nav>
+
+      <div class="mock-hero">
+        <div class="mock-tag">Robotics & Nanotechnology</div>
+        <h1 class="mock-hero-title">Engineering at the<br>Intersection of Scale</h1>
+        <p class="mock-hero-sub">
+          PhD researcher at Northeastern University exploring electrospray deposition, soft robotics, and continuum mechanics across scales from nano to macro.
+        </p>
+        <a class="mock-btn" href="#">View Research →</a>
+      </div>
+
+      <div class="mock-section-label">Selected Projects</div>
+      <div class="mock-cards">
+        <div class="mock-card">
+          <div class="mock-card-tag">Nanotechnology · 2024</div>
+          <div class="mock-card-title">Electrospray Deposition</div>
+          <p class="mock-card-desc">Developing precision thin-film deposition techniques using electrospray for nano-scale manufacturing.</p>
+        </div>
+        <div class="mock-card">
+          <div class="mock-card-tag">Robotics · 2023</div>
+          <div class="mock-card-title">Soft Actuator Design</div>
+          <p class="mock-card-desc">Designing bio-inspired soft actuators using continuum mechanics for adaptive robotic systems.</p>
+        </div>
+        <div class="mock-card">
+          <div class="mock-card-tag">Mechanics · 2023</div>
+          <div class="mock-card-title">Continuum Modeling</div>
+          <p class="mock-card-desc">Multi-scale computational models bridging molecular dynamics with continuum mechanics.</p>
+        </div>
+        <div class="mock-card">
+          <div class="mock-card-tag">Systems · 2022</div>
+          <div class="mock-card-title">Adaptive Control</div>
+          <p class="mock-card-desc">Feedback control architectures for flexible robotic systems under environmental uncertainty.</p>
+        </div>
+      </div>
+
+      <footer class="mock-footer">
+        <span class="mock-footer-name">Srujan Pandya</span>
+        <div class="mock-footer-links">
+          <a class="mock-footer-link" href="#">LinkedIn</a>
+          <a class="mock-footer-link" href="#">GitHub</a>
+          <a class="mock-footer-link" href="#">Substack</a>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const palettes = [
+    {
+      id: "academic-parchment",
+      name: "Academic Parchment",
+      desc: "Your current palette — warm oat tones, scholarly and clean.",
+      bg:     "#F4F1EA",
+      text:   "#2D2D2D",
+      accent: "#8E5342",
+      muted:  "#6B6B6B",
+      card:   "#EDE9DF",
+      border: "#D9D4C7",
+    },
+    {
+      id: "deep-fluidity",
+      name: "Deep Fluidity",
+      desc: "Sophisticated dark mode with warm gold accents — high-end editorial feel.",
+      bg:     "#111110",
+      text:   "#E8E4DC",
+      accent: "#C4973C",
+      muted:  "#888680",
+      card:   "#1C1B19",
+      border: "#2E2D2A",
+    },
+    {
+      id: "soft-robotics",
+      name: "Soft Robotics",
+      desc: "Muted sage green against off-white — organic and technical.",
+      bg:     "#F2F4F0",
+      text:   "#252B22",
+      accent: "#5A7A52",
+      muted:  "#6A7566",
+      card:   "#E8EBE4",
+      border: "#CDD4C7",
+    },
+    {
+      id: "slate-clay",
+      name: "Slate & Clay",
+      desc: "Engineering steel grey balanced with warm terracotta.",
+      bg:     "#F5F4F2",
+      text:   "#2A2F36",
+      accent: "#B06040",
+      muted:  "#6E7880",
+      card:   "#ECEAE6",
+      border: "#D4D0CA",
+    },
+    {
+      id: "midnight-ink",
+      name: "Midnight Ink",
+      desc: "Deep navy tones with electric blue — bold and modern.",
+      bg:     "#0D1117",
+      text:   "#CDD9E5",
+      accent: "#4493F8",
+      muted:  "#8B949E",
+      card:   "#161B22",
+      border: "#21262D",
+    },
+    {
+      id: "linen-dusk",
+      name: "Linen & Dusk",
+      desc: "Soft warm linen with dusty rose — elegant and minimal.",
+      bg:     "#FAF6F1",
+      text:   "#2C2420",
+      accent: "#A0606A",
+      muted:  "#7A6A64",
+      card:   "#F2ECE4",
+      border: "#DED6CC",
+    },
+    {
+      id: "carbon-chrome",
+      name: "Carbon & Chrome",
+      desc: "Dark graphite with cool silver — technical and precise.",
+      bg:     "#161819",
+      text:   "#D8DDE2",
+      accent: "#A8B8C8",
+      muted:  "#707880",
+      card:   "#1E2124",
+      border: "#2C3035",
+    },
+    {
+      id: "forest-vellum",
+      name: "Forest Vellum",
+      desc: "Deep forest green on warm cream — grounded and academic.",
+      bg:     "#F6F3EC",
+      text:   "#1E2B20",
+      accent: "#3A6B4A",
+      muted:  "#5A6E5C",
+      card:   "#EDE8DE",
+      border: "#D0CBBD",
+    },
+    {
+      id: "obsidian-amber",
+      name: "Obsidian & Amber",
+      desc: "True black canvas with warm amber — dramatic and refined.",
+      bg:     "#0A0A0A",
+      text:   "#E8DCC8",
+      accent: "#D4892A",
+      muted:  "#8A7A64",
+      card:   "#141414",
+      border: "#282420",
+    },
+    {
+      id: "polar-drift",
+      name: "Polar Drift",
+      desc: "Cool icy whites with slate blue — crisp and precise.",
+      bg:     "#F7F8FA",
+      text:   "#1A2030",
+      accent: "#3564A0",
+      muted:  "#607090",
+      card:   "#EDF0F4",
+      border: "#CBD2DC",
+    },
+  ];
+
+  let activePalette = null;
+
+  function applyPalette(p) {
+    activePalette = p;
+    const frame = document.getElementById('previewFrame');
+    frame.style.backgroundColor = p.bg;
+
+    // CSS vars for mock site
+    const vars = `
+      --preview-bg: ${p.bg};
+      --preview-text: ${p.text};
+      --preview-accent: ${p.accent};
+      --preview-muted: ${p.muted};
+      --preview-card: ${p.card};
+      --preview-border: ${p.border};
+    `;
+    frame.setAttribute('style', `background-color:${p.bg}; ${vars}`);
+
+    document.getElementById('previewLabel').textContent = p.name;
+    document.getElementById('hexBg').textContent     = p.bg;
+    document.getElementById('hexText').textContent   = p.text;
+    document.getElementById('hexAccent').textContent = p.accent;
+    document.getElementById('hexMuted').textContent  = p.muted;
+    document.getElementById('hexCard').textContent   = p.card;
+    document.getElementById('hexBorder').textContent = p.border;
+
+    document.querySelectorAll('.palette-card').forEach(el => el.classList.remove('active'));
+    document.getElementById('card-' + p.id).classList.add('active');
+  }
+
+  function copyHex(el) {
+    navigator.clipboard.writeText(el.textContent).then(() => showToast('Copied ' + el.textContent));
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  }
+
+  function showApplyInstructions() {
+    if (!activePalette) { showToast('Select a palette first'); return; }
+    const p = activePalette;
+    const msg = `To apply "${p.name}" to your portfolio:
+
+1. Open tailwind.config.js and add these colors:
+
+colors: {
+  bg: '${p.bg}',
+  primary: '${p.text}',
+  accent: '${p.accent}',
+  muted: '${p.muted}',
+  card: '${p.card}',
+  border: '${p.border}',
+}
+
+2. In src/index.css, update:
+   background-color: ${p.bg};
+   color: ${p.text};
+   outline: 2px solid ${p.accent};`;
+    alert(msg);
+  }
+
+  // Build palette cards
+  const list = document.getElementById('paletteList');
+  palettes.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'palette-card';
+    card.id = 'card-' + p.id;
+    card.innerHTML = `
+      <div class="palette-card-name">${p.name}</div>
+      <div class="palette-card-desc">${p.desc}</div>
+      <div class="palette-swatches">
+        <div class="swatch" style="background:${p.bg}"></div>
+        <div class="swatch" style="background:${p.text}"></div>
+        <div class="swatch" style="background:${p.accent}"></div>
+        <div class="swatch" style="background:${p.muted}"></div>
+      </div>
+    `;
+    card.onclick = () => applyPalette(p);
+    list.appendChild(card);
+  });
+
+  // Default to first palette
+  applyPalette(palettes[0]);
+</script>
+</body>
+</html>

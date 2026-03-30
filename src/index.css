@@ -3,61 +3,139 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   THEME PALETTE VARIABLES
+   Applied via data-theme="..." on <html> — three palettes:
+     deep-fluidity | carbon-chrome | soft-robotics
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Deep Fluidity (dark, warm gold) ─────────────────────────────────────── */
+:root[data-theme="deep-fluidity"],
+html[data-theme="deep-fluidity"] {
+  --theme-bg:        #111110;
+  --theme-text:      #F2EFE8;
+  --theme-subtle:    #888680;
+  --theme-accent1:   #C4973C;
+  --theme-accent2:   #C4973C;
+  --theme-border:    #2E2D2A;
+  --theme-card:      #1C1B19;
+  --theme-card-grad-from: #1C1B19;
+  --theme-card-grad-to:   #171613;
+  --theme-card-border:    #2E2D2A;
+  --theme-divider:   #2E2D2A;
+  --theme-selection: #2E2C28;
+  --theme-input-bg:  #1C1B19;
+  --theme-btn-bg:    #C4973C;
+  --theme-btn-text:  #111110;
+  --theme-math-bg:   #1C1B19;
+  --theme-grid-line: #E8E4DC;
+  --theme-vignette:  #111110;
+  --theme-hover-accent: #D4A84C;
+  --theme-subscribe-bg: #1C1B19;
+  --theme-subscribe-border: #2E2D2A;
+}
+
+/* ── Carbon & Chrome (dark, cool silver) ─────────────────────────────────── */
+:root[data-theme="carbon-chrome"],
+html[data-theme="carbon-chrome"] {
+  --theme-bg:        #161819;
+  --theme-text:      #EAEEF2;
+  --theme-subtle:    #707880;
+  --theme-accent1:   #A8B8C8;
+  --theme-accent2:   #A8B8C8;
+  --theme-border:    #2C3035;
+  --theme-card:      #1E2124;
+  --theme-card-grad-from: #1E2124;
+  --theme-card-grad-to:   #191C1F;
+  --theme-card-border:    #2C3035;
+  --theme-divider:   #2C3035;
+  --theme-selection: #2C3035;
+  --theme-input-bg:  #1E2124;
+  --theme-btn-bg:    #A8B8C8;
+  --theme-btn-text:  #161819;
+  --theme-math-bg:   #1E2124;
+  --theme-grid-line: #D8DDE2;
+  --theme-vignette:  #161819;
+  --theme-hover-accent: #C0D0E0;
+  --theme-subscribe-bg: #1E2124;
+  --theme-subscribe-border: #2C3035;
+}
+
+/* ── Soft Robotics (light, sage green) ───────────────────────────────────── */
+:root[data-theme="soft-robotics"],
+html[data-theme="soft-robotics"] {
+  --theme-bg:        #E8EBE4;   /* toned-down from #F2F4F0 — softer on bright screens */
+  --theme-text:      #1A2018;   /* slightly darker for better contrast */
+  --theme-subtle:    #566152;
+  --theme-accent1:   #4A6A43;
+  --theme-accent2:   #4A6A43;
+  --theme-border:    #BCC5B6;
+  --theme-card:      #DDE1D8;
+  --theme-card-grad-from: #DDE1D8;
+  --theme-card-grad-to:   #D2D8CC;
+  --theme-card-border:    #BCC5B6;
+  --theme-divider:   #BCC5B6;
+  --theme-selection: #C9D2C3;
+  --theme-input-bg:  #DDE1D8;
+  --theme-btn-bg:    #4A6A43;
+  --theme-btn-text:  #F2F4F0;
+  --theme-math-bg:   #E8EBE4;
+  --theme-grid-line: #252B22;
+  --theme-vignette:  #DDE1D8;
+  --theme-hover-accent: #4A6A42;
+  --theme-subscribe-bg: #E8EBE4;
+  --theme-subscribe-border: #CDD4C7;
+}
+
 /* ─── Base Styles ─────────────────────────────────────────────────────────── */
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Smooth theme transitions */
+    transition: background-color 0.35s ease, color 0.35s ease;
   }
 
   body {
-    /* Match the warm oat background so there's no flash of white on load */
-    background-color: #F4F1EA;
-    color: #2D2D2D;
-    /* Improve text rendering */
+    background-color: var(--theme-bg, #111110);
+    color: var(--theme-text, #E8E4DC);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.35s ease, color 0.35s ease;
   }
 
-  /* Smooth focus outlines for accessibility */
   :focus-visible {
-    outline: 2px solid #8E5342;
+    outline: 2px solid var(--theme-accent2, #C4973C);
     outline-offset: 2px;
     border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--theme-selection, #2E2C28);
   }
 }
 
 /* ─── Custom Utilities ────────────────────────────────────────────────────── */
 
 @layer utilities {
-  /* Tailwind v3 ships animate-in / slide-in / fade-in only via the
-     official animation plugin. Since we're not using it, we define the
-     keyframes and utilities manually so the classes in the components work. */
-
   .animate-in {
     animation-fill-mode: both;
   }
-
   .fade-in {
     animation-name: fadeIn;
   }
-
   .zoom-in {
     animation-name: zoomFadeIn;
   }
-
   .slide-in-from-bottom-2 {
     animation-name: slideInFromBottom2;
   }
-
   .duration-500 {
     animation-duration: 500ms;
   }
-
   .duration-700 {
     animation-duration: 700ms;
   }
-
   .duration-1000 {
     animation-duration: 1000ms;
   }
@@ -79,3 +157,76 @@
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THEME TOGGLE — 3-way pill button
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.theme-toggle-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle-pill {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--theme-card);
+  border: 1px solid var(--theme-border);
+  border-radius: 999px;
+  padding: 3px;
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px 5px 7px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  color: var(--theme-subtle);
+}
+
+.theme-toggle-btn:hover {
+  background: var(--theme-border);
+  color: var(--theme-text);
+}
+
+.theme-toggle-btn.active {
+  background: var(--theme-accent1);
+  color: var(--theme-bg);
+}
+
+/* Force text contrast on active state for light themes */
+html[data-theme="soft-robotics"] .theme-toggle-btn.active {
+  color: #F2F4F0;
+}
+
+.theme-toggle-swatches {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.theme-swatch {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.12);
+  flex-shrink: 0;
+}
+
+.theme-toggle-label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+

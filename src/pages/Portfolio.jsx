@@ -1,22 +1,7 @@
 import React, { useState } from 'react';
-import { Search, ArrowUpRight, Linkedin, Github, Mail, Download, FileText, ExternalLink } from 'lucide-react';
+import { Search, ArrowUpRight, Linkedin, Github, Mail, Download, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
-// --- WARM LIGHT THEME — WELL-BALANCED CONTRAST ---
-// Background: warm oat #F4F1EA
-// Primary text: near-black warm #1E1C1A  (stronger than before)
-// Secondary text: warm slate #5C5753    (was too light at #484441 / #5A5A5A)
-// Borders: warm taupe #9E9690           (clearly visible, not harsh)
-// Accent sage: #3B5C3B                  (forest green, slightly richer)
-// Accent clay: #8E5342                  (unchanged)
-const COLORS = {
-    bg: 'bg-[#F4F1EA]',
-    text: 'text-[#1E1C1A]',
-    subtleText: 'text-[#5C5753]',
-    accent1: 'text-[#3B5C3B]',
-    accent2: 'text-[#8E5342]',
-    border: 'border-[#9E9690]',
-};
+import ThemeToggle from '../components/ThemeToggle';
 
 // --- RESEARCH / ONGOING WORK ---
 const RESEARCH = [
@@ -71,6 +56,21 @@ const WRITING = [
 // PDF path — served from /public by Vite
 const CV_PDF = './Srujan_Pandya_Resume.pdf';
 
+// Inline style helpers reading CSS custom properties
+const s = {
+    bg:        { backgroundColor: 'var(--theme-bg)' },
+    text:      { color: 'var(--theme-text)' },
+    subtle:    { color: 'var(--theme-subtle)' },
+    accent1:   { color: 'var(--theme-accent1)' },
+    accent2:   { color: 'var(--theme-accent2)' },
+    border:    { borderColor: 'var(--theme-border)' },
+    card:      { backgroundColor: 'var(--theme-card)', borderColor: 'var(--theme-card-border)' },
+    inputBg:   { backgroundColor: 'var(--theme-input-bg)' },
+    btnBg:     { backgroundColor: 'var(--theme-btn-bg)', color: 'var(--theme-btn-text)' },
+    subscribeBg: { backgroundColor: 'var(--theme-subscribe-bg)', borderColor: 'var(--theme-subscribe-border)' },
+    divider:   { backgroundColor: 'var(--theme-divider)' },
+};
+
 export default function Portfolio() {
     const [tab, setTab] = useState('home');
     const [searchQuery, setSearchQuery] = useState('');
@@ -82,29 +82,37 @@ export default function Portfolio() {
     );
 
     return (
-        <div className={`min-h-screen ${COLORS.bg} ${COLORS.text} font-serif selection:bg-[#E2DDD0]`}>
+        <div className="min-h-screen font-serif" style={s.bg}>
             <div className="max-w-2xl mx-auto px-6 py-16 flex flex-col items-center">
 
                 {/* Navigation */}
-                <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-24 text-[13px] font-sans lowercase tracking-widest">
-                    {['home', 'research', 'projects', 'writing', 'cv'].map((t) => (
-                        <button
-                            key={t}
-                            onClick={() => setTab(t)}
-                            className={`transition-all pb-1 border-b-2 ${tab === t
-                                ? `border-[#8E5342] ${COLORS.accent2} font-bold`
-                                : `border-transparent ${COLORS.subtleText} hover:text-[#3B5C3B]`
-                                }`}
-                        >
-                            {t}
-                        </button>
-                    ))}
+                <nav className="w-full flex flex-col items-center gap-5 mb-24">
+                    {/* Tab links — centered */}
+                    <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-[13px] font-sans lowercase tracking-widest">
+                        {['home', 'research', 'projects', 'writing', 'cv'].map((t) => (
+                            <button
+                                key={t}
+                                onClick={() => setTab(t)}
+                                className="transition-all pb-1 border-b-2"
+                                style={{
+                                    borderColor: tab === t ? 'var(--theme-accent2)' : 'transparent',
+                                    color: tab === t ? 'var(--theme-accent2)' : 'var(--theme-subtle)',
+                                    fontWeight: tab === t ? 700 : 400,
+                                }}
+                            >
+                                {t}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* 3-way theme toggle — centered below tabs */}
+                    <ThemeToggle />
                 </nav>
 
                 {/* Identity Section */}
                 <div className="text-center mb-20 animate-in fade-in zoom-in duration-1000">
-                    <h1 className="text-4xl font-serif lowercase mb-3 tracking-tighter italic">Srujan Pandya</h1>
-                    <p className={`text-[12px] font-sans lowercase tracking-[0.25em] ${COLORS.subtleText} font-medium`}>
+                    <h1 className="text-4xl font-serif lowercase mb-3 tracking-tighter italic" style={s.text}>Srujan Pandya</h1>
+                    <p className="text-[12px] font-sans lowercase tracking-[0.25em] font-medium" style={s.subtle}>
                         phd student • mechanical engineering • soft-matter physics
                     </p>
                 </div>
@@ -116,25 +124,27 @@ export default function Portfolio() {
                     {tab === 'home' && (
                         <div className="animate-in slide-in-from-bottom-2 duration-700 space-y-20">
                             <section className="text-center space-y-8">
-                                <p className="text-xl leading-relaxed lowercase opacity-90 italic max-w-lg mx-auto">
-                                    designing systems at the boundary of <span className={COLORS.accent1}>control theory</span> and soft robotics. exploring multiscale modeling and electrospray deposition at the university at buffalo.
+                                <p className="text-xl leading-relaxed lowercase opacity-90 italic max-w-lg mx-auto" style={s.text}>
+                                    designing systems at the boundary of{' '}
+                                    <span style={s.accent1}>control theory</span>
+                                    {' '}and soft robotics. exploring multiscale modeling and electrospray deposition at the university at buffalo.
                                 </p>
-                                <div className="h-px w-16 bg-[#9E9690] mx-auto" />
+                                <div className="h-px w-16 mx-auto" style={s.divider} />
                             </section>
 
                             <section className="space-y-10 max-w-md mx-auto">
-                                <div className={`flex items-center justify-between ${COLORS.subtleText} text-[10px] uppercase tracking-[0.3em] font-sans font-black`}>
+                                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em] font-sans font-black" style={s.subtle}>
                                     <span>Updates</span>
-                                    <div className="h-px flex-1 mx-4 bg-[#9E9690] opacity-70" />
+                                    <div className="h-px flex-1 mx-4 opacity-70" style={s.divider} />
                                     <span>2026</span>
                                 </div>
-                                <ul className={`space-y-6 text-sm lowercase ${COLORS.subtleText}`}>
+                                <ul className="space-y-6 text-sm lowercase" style={s.subtle}>
                                     <li className="flex gap-4 group">
-                                        <span className={`${COLORS.accent1} font-bold group-hover:translate-x-1 transition-transform`}>→</span>
+                                        <span className="font-bold group-hover:translate-x-1 transition-transform" style={s.accent1}>→</span>
                                         <span>phd research in soft microrobotics & multiscale modeling, university at buffalo</span>
                                     </li>
                                     <li className="flex gap-4 group">
-                                        <span className={`${COLORS.accent1} font-bold group-hover:translate-x-1 transition-transform`}>→</span>
+                                        <span className="font-bold group-hover:translate-x-1 transition-transform" style={s.accent1}>→</span>
                                         <span>investigating electrospray deposition processes with lab: sail, advisor: dr. xin yong</span>
                                     </li>
                                 </ul>
@@ -147,13 +157,17 @@ export default function Portfolio() {
                         <div className="animate-in slide-in-from-bottom-2 duration-500 space-y-16">
                             <div className="flex justify-center mb-12">
                                 <div className="relative w-full max-w-xs">
-                                    <Search size={14} className={`absolute left-0 top-1/2 -translate-y-1/2 ${COLORS.subtleText}`} />
+                                    <Search size={14} className="absolute left-0 top-1/2 -translate-y-1/2" style={s.subtle} />
                                     <input
                                         type="text"
                                         placeholder="filter research..."
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        className={`w-full bg-transparent border-b ${COLORS.border} pl-8 py-2 text-xs lowercase focus:outline-none focus:border-[#8E5342] transition-all font-sans placeholder:text-[#9E9690]`}
+                                        className="w-full bg-transparent border-b pl-8 py-2 text-xs lowercase focus:outline-none transition-all font-sans"
+                                        style={{
+                                            ...s.border,
+                                            color: 'var(--theme-text)',
+                                        }}
                                     />
                                 </div>
                             </div>
@@ -163,19 +177,22 @@ export default function Portfolio() {
                                     filteredResearch.map((item) => (
                                         <div key={item.id} className="group cursor-pointer">
                                             <div className="flex items-baseline gap-4 mb-2">
-                                                <span className={`text-[10px] font-sans font-bold ${COLORS.subtleText}`}>{item.year}</span>
-                                                <h3 className="text-lg lowercase group-hover:text-[#8E5342] transition-colors leading-tight">
+                                                <span className="text-[10px] font-sans font-bold" style={s.subtle}>{item.year}</span>
+                                                <h3 className="text-lg lowercase leading-tight transition-colors" style={s.text}
+                                                    onMouseEnter={e => e.currentTarget.style.color = 'var(--theme-accent2)'}
+                                                    onMouseLeave={e => e.currentTarget.style.color = 'var(--theme-text)'}
+                                                >
                                                     {item.title}
                                                 </h3>
                                             </div>
                                             <div className="pl-14 flex items-center gap-3">
-                                                <span className={`text-[10px] uppercase tracking-widest ${COLORS.subtleText} font-sans font-bold italic`}>{item.journal}</span>
-                                                <ExternalLink size={12} className="opacity-0 group-hover:opacity-60 transition-opacity text-[#8E5342]" />
+                                                <span className="text-[10px] uppercase tracking-widest font-sans font-bold italic" style={s.subtle}>{item.journal}</span>
+                                                <ExternalLink size={12} className="opacity-0 group-hover:opacity-60 transition-opacity" style={s.accent2} />
                                             </div>
                                         </div>
                                     ))
                                 ) : (
-                                    <p className={`text-center text-sm lowercase ${COLORS.subtleText}`}>
+                                    <p className="text-center text-sm lowercase" style={s.subtle}>
                                         no results for "{searchQuery}"
                                     </p>
                                 )}
@@ -188,16 +205,23 @@ export default function Portfolio() {
                         <div className="animate-in slide-in-from-bottom-2 duration-500 space-y-16">
                             <div className="space-y-12">
                                 {PROJECTS.map((item) => (
-                                    <div key={item.id} className="group border-l-2 border-[#D5D0C8] hover:border-[#8E5342] pl-8 transition-all">
-                                        <h3 className="text-xl font-serif lowercase mb-2 group-hover:italic">
+                                    <div
+                                        key={item.id}
+                                        className="group border-l-2 pl-8 transition-all"
+                                        style={{ borderColor: 'var(--theme-border)' }}
+                                        onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--theme-accent2)'}
+                                        onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--theme-border)'}
+                                    >
+                                        <h3 className="text-xl font-serif lowercase mb-2 group-hover:italic" style={s.text}>
                                             {item.title}
                                         </h3>
-                                        <p className={`text-sm lowercase ${COLORS.subtleText} leading-relaxed mb-4 max-w-lg`}>
+                                        <p className="text-sm lowercase leading-relaxed mb-4 max-w-lg" style={s.subtle}>
                                             {item.description}
                                         </p>
                                         <button
                                             onClick={() => navigate(`/projects/${item.id}`)}
-                                            className={`text-[10px] font-sans font-bold uppercase tracking-widest ${COLORS.accent2} flex items-center gap-2 hover:gap-3 transition-all`}
+                                            className="text-[10px] font-sans font-bold uppercase tracking-widest flex items-center gap-2 hover:gap-3 transition-all"
+                                            style={s.accent2}
                                         >
                                             explore project <ArrowUpRight size={12} />
                                         </button>
@@ -213,42 +237,54 @@ export default function Portfolio() {
 
                             {/* Newsletter — Barely An Opinion */}
                             <div className="relative pl-7 mb-14">
-                                {/* Clay left-rule accent */}
-                                <div className="absolute left-0 top-0 bottom-0 w-px bg-[#8E5342] opacity-30" />
+                                {/* Accent left-rule */}
+                                <div className="absolute left-0 top-0 bottom-0 w-px opacity-30" style={{ backgroundColor: 'var(--theme-accent2)' }} />
 
                                 <div className="mb-1 flex items-baseline gap-3">
-                                    <h4 className="font-serif italic text-lg lowercase text-[#1E1C1A]">barely an opinion</h4>
-                                    <span className="text-[9px] uppercase tracking-[0.25em] font-sans opacity-30">substack</span>
+                                    <h4 className="font-serif italic text-lg lowercase" style={s.text}>barely an opinion</h4>
+                                    <span className="text-[9px] uppercase tracking-[0.25em] font-sans opacity-30" style={s.subtle}>substack</span>
                                 </div>
-                                <p className={`text-[12px] font-sans lowercase leading-relaxed mb-6 max-w-sm ${COLORS.subtleText}`}>
+                                <p className="text-[12px] font-sans lowercase leading-relaxed mb-6 max-w-sm" style={s.subtle}>
                                     i cannot give everyone the story they want. but i am trying hard to give everyone the story they need.
                                 </p>
 
-                                {/* Elegant subscribe row */}
-                                <div className="flex items-stretch max-w-sm bg-[#EAE6DB] border border-[#D0C9BA] rounded-sm overflow-hidden">
+                                {/* Subscribe row */}
+                                <div
+                                    className="flex items-stretch max-w-sm border rounded-sm overflow-hidden"
+                                    style={s.subscribeBg}
+                                >
                                     <input
                                         type="email"
                                         placeholder="your email"
-                                        className="flex-1 bg-transparent px-4 py-3 text-[12px] font-sans lowercase text-[#1E1C1A] placeholder:text-[#9E9690] focus:outline-none"
+                                        className="flex-1 bg-transparent px-4 py-3 text-[12px] font-sans lowercase focus:outline-none"
+                                        style={{ color: 'var(--theme-text)' }}
                                     />
-                                    <button className="px-5 py-3 text-[10px] font-sans lowercase tracking-widest text-[#F4F1EA] bg-[#8E5342] hover:bg-[#7A4538] transition-colors whitespace-nowrap">
+                                    <button
+                                        className="px-5 py-3 text-[10px] font-sans lowercase tracking-widest transition-colors whitespace-nowrap"
+                                        style={s.btnBg}
+                                    >
                                         subscribe
                                     </button>
                                 </div>
                             </div>
 
                             {WRITING.map((item) => (
-                                <article key={item.id} className={`group border-b ${COLORS.border} pb-8`}>
+                                <article key={item.id} className="group border-b pb-8" style={s.border}>
                                     <a href={item.link} target="_blank" rel="noopener noreferrer" className="block">
                                         <div className="flex justify-between items-baseline mb-3">
-                                            <h3 className="text-xl lowercase group-hover:italic group-hover:text-[#8E5342] transition-all cursor-pointer">
+                                            <h3
+                                                className="text-xl lowercase transition-all cursor-pointer"
+                                                style={s.text}
+                                                onMouseEnter={e => { e.currentTarget.style.color = 'var(--theme-accent2)'; e.currentTarget.style.fontStyle = 'italic'; }}
+                                                onMouseLeave={e => { e.currentTarget.style.color = 'var(--theme-text)'; e.currentTarget.style.fontStyle = 'normal'; }}
+                                            >
                                                 {item.title}
                                             </h3>
-                                            <span className={`text-[10px] font-sans font-bold ${COLORS.subtleText} ml-4 shrink-0`}>{item.date}</span>
+                                            <span className="text-[10px] font-sans font-bold ml-4 shrink-0" style={s.subtle}>{item.date}</span>
                                         </div>
                                         <div className="flex gap-4 items-center">
-                                            <span className={`text-[10px] ${COLORS.accent2} font-sans uppercase tracking-widest font-black`}>{item.platform}</span>
-                                            <ArrowUpRight size={14} className={`${COLORS.subtleText} group-hover:translate-x-1 transition-transform`} />
+                                            <span className="text-[10px] font-sans uppercase tracking-widest font-black" style={s.accent2}>{item.platform}</span>
+                                            <ArrowUpRight size={14} className="group-hover:translate-x-1 transition-transform" style={s.subtle} />
                                         </div>
                                     </a>
                                 </article>
@@ -260,18 +296,21 @@ export default function Portfolio() {
                     {tab === 'cv' && (
                         <div className="animate-in slide-in-from-bottom-2 duration-500 space-y-6">
                             <div className="flex justify-between items-center">
-                                <h2 className="text-xl font-serif lowercase italic">curriculum vitae</h2>
+                                <h2 className="text-xl font-serif lowercase italic" style={s.text}>curriculum vitae</h2>
                                 <a
                                     href={CV_PDF}
                                     download="Srujan_Pandya_Resume.pdf"
-                                    className={`flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest ${COLORS.accent2} border border-[#8E5342] px-4 py-2 hover:bg-[#8E5342] hover:text-white transition-all`}
+                                    className="flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest border px-4 py-2 transition-all"
+                                    style={{ ...s.accent2, borderColor: 'var(--theme-accent2)' }}
+                                    onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--theme-accent2)'; e.currentTarget.style.color = 'var(--theme-bg)'; }}
+                                    onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--theme-accent2)'; }}
                                 >
                                     <Download size={14} /> download pdf
                                 </a>
                             </div>
 
                             {/* Embedded PDF via iframe */}
-                            <div className="w-full border border-[#9E9690] shadow-sm overflow-hidden rounded-sm">
+                            <div className="w-full border shadow-sm overflow-hidden rounded-sm" style={s.border}>
                                 <iframe
                                     src={CV_PDF}
                                     title="Srujan Pandya – Curriculum Vitae"
@@ -280,10 +319,16 @@ export default function Portfolio() {
                                 />
                             </div>
 
-                            {/* Fallback for browsers that block iframe PDFs */}
-                            <p className={`text-center text-[11px] font-sans lowercase ${COLORS.subtleText}`}>
+                            {/* Fallback */}
+                            <p className="text-center text-[11px] font-sans lowercase" style={s.subtle}>
                                 if the pdf doesn't display,{' '}
-                                <a href={CV_PDF} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#8E5342] transition-colors">
+                                <a
+                                    href={CV_PDF}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="underline transition-colors"
+                                    style={s.accent2}
+                                >
                                     open it directly
                                 </a>
                                 .
@@ -293,23 +338,35 @@ export default function Portfolio() {
                 </main>
 
                 {/* Footer */}
-                <footer className="mt-40 pt-12 border-t border-[#9E9690] w-full flex flex-col items-center gap-10">
+                <footer className="mt-40 pt-12 border-t w-full flex flex-col items-center gap-10" style={s.border}>
                     <div className="flex gap-10">
                         <a href="mailto:srujanma@buffalo.edu" aria-label="Email" title="Email">
-                            <Mail size={18} strokeWidth={1.5} className={`${COLORS.subtleText} cursor-pointer hover:text-[#8E5342] transition-colors`} />
+                            <Mail size={18} strokeWidth={1.5} className="cursor-pointer transition-colors"
+                                style={s.subtle}
+                                onMouseEnter={e => e.currentTarget.style.color = 'var(--theme-accent2)'}
+                                onMouseLeave={e => e.currentTarget.style.color = 'var(--theme-subtle)'}
+                            />
                         </a>
                         <a href="https://www.linkedin.com/in/srujanpandya" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
-                            <Linkedin size={18} strokeWidth={1.5} className={`${COLORS.subtleText} cursor-pointer hover:text-[#8E5342] transition-colors`} />
+                            <Linkedin size={18} strokeWidth={1.5} className="cursor-pointer transition-colors"
+                                style={s.subtle}
+                                onMouseEnter={e => e.currentTarget.style.color = 'var(--theme-accent2)'}
+                                onMouseLeave={e => e.currentTarget.style.color = 'var(--theme-subtle)'}
+                            />
                         </a>
                         <a href="https://github.com/SrujanPandya" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
-                            <Github size={18} strokeWidth={1.5} className={`${COLORS.subtleText} cursor-pointer hover:text-[#8E5342] transition-colors`} />
+                            <Github size={18} strokeWidth={1.5} className="cursor-pointer transition-colors"
+                                style={s.subtle}
+                                onMouseEnter={e => e.currentTarget.style.color = 'var(--theme-accent2)'}
+                                onMouseLeave={e => e.currentTarget.style.color = 'var(--theme-subtle)'}
+                            />
                         </a>
                     </div>
                     <div className="flex flex-col items-center gap-2">
-                        <p className={`text-[10px] lowercase tracking-[0.5em] font-sans font-bold ${COLORS.subtleText}`}>
+                        <p className="text-[10px] lowercase tracking-[0.5em] font-sans font-bold" style={s.subtle}>
                             srujan pandya • buffalo, ny
                         </p>
-                        <p className={`text-[9px] lowercase tracking-[0.2em] font-sans ${COLORS.subtleText} opacity-80`}>
+                        <p className="text-[9px] lowercase tracking-[0.2em] font-sans opacity-80" style={s.subtle}>
                             what you see here is all mine • © 2026
                         </p>
                     </div>

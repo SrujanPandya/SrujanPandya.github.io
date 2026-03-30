@@ -1,25 +1,31 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ArrowRight, Share2, Info, Hash } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Share2, Info, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import ThemeToggle from '../components/ThemeToggle';
 
-// --- WARM LIGHT THEME — WELL-BALANCED CONTRAST ---
-const COLORS = {
-    bg: 'bg-[#F4F1EA]',
-    text: 'text-[#1E1C1A]',
-    subtle: 'text-[#5C5753]',
-    accent1: 'text-[#3B5C3B]',  // Forest sage
-    accent2: 'text-[#8E5342]',  // Clay
-    border: 'border-[#9E9690]', // Warm taupe — clearly visible
-    mathBg: 'bg-[#EAE6DB]',
+// Inline style helpers reading CSS custom properties
+const s = {
+    bg:       { backgroundColor: 'var(--theme-bg)' },
+    text:     { color: 'var(--theme-text)' },
+    subtle:   { color: 'var(--theme-subtle)' },
+    accent1:  { color: 'var(--theme-accent1)' },
+    accent2:  { color: 'var(--theme-accent2)' },
+    border:   { borderColor: 'var(--theme-border)' },
+    card:     { backgroundColor: 'var(--theme-card)', borderColor: 'var(--theme-card-border)' },
+    mathBg:   { backgroundColor: 'var(--theme-math-bg)', borderColor: 'var(--theme-card-border)' },
+    divider:  { backgroundColor: 'var(--theme-divider)' },
 };
 
 // --- TECHNICAL COMPONENTS ---
 
 const MathBlock = ({ children, label }) => (
     <div className="my-10 relative group">
-        <div className="absolute left-0 top-0 bottom-0 w-px bg-[#8E5342] opacity-35" />
-        <div className="pl-8 pr-4 py-7 bg-gradient-to-br from-[#EDE9DF] to-[#E8E3D8] border border-[#D5CFBF] rounded-sm">
-            <div className="overflow-x-auto text-center font-serif text-lg py-3 tracking-wide text-[#1E1C1A]">
+        <div className="absolute left-0 top-0 bottom-0 w-px opacity-35" style={{ backgroundColor: 'var(--theme-accent2)' }} />
+        <div className="pl-8 pr-4 py-7 border rounded-sm" style={{
+            background: `linear-gradient(135deg, var(--theme-card-grad-from), var(--theme-card-grad-to))`,
+            borderColor: 'var(--theme-card-border)',
+        }}>
+            <div className="overflow-x-auto text-center font-serif text-lg py-3 tracking-wide" style={s.text}>
                 {children}
             </div>
             {label && (
@@ -33,22 +39,28 @@ const MathBlock = ({ children, label }) => (
 
 const ImageFrame = ({ caption, alt }) => (
     <figure className="my-12 space-y-5">
-        <div className="aspect-video w-full bg-gradient-to-br from-[#EDE9DF] via-[#E5E0D4] to-[#DDD8CC] border border-[#CEC8B8] relative overflow-hidden flex items-end">
+        <div
+            className="aspect-video w-full border relative overflow-hidden flex items-end"
+            style={{
+                background: `linear-gradient(135deg, var(--theme-card-grad-from), var(--theme-card-grad-to))`,
+                borderColor: 'var(--theme-card-border)',
+            }}
+        >
             {/* Restrained grid lines */}
             <div className="absolute inset-0 opacity-[0.06]" style={{
-                backgroundImage: 'linear-gradient(#1E1C1A 1px, transparent 1px), linear-gradient(90deg, #1E1C1A 1px, transparent 1px)',
+                backgroundImage: `linear-gradient(var(--theme-grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--theme-grid-line) 1px, transparent 1px)`,
                 backgroundSize: '40px 40px'
             }} />
             {/* Bottom vignette */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#DDD8CC]/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--theme-vignette)]/60 via-transparent to-transparent" />
             <div className="relative z-10 w-full px-6 pb-5 flex items-center justify-between">
-                <span className="text-[9px] uppercase tracking-[0.35em] opacity-25 font-sans">
+                <span className="text-[9px] uppercase tracking-[0.35em] opacity-25 font-sans" style={s.text}>
                     {alt}
                 </span>
-                <span className="text-[9px] font-sans opacity-20 tracking-widest">fig.</span>
+                <span className="text-[9px] font-sans opacity-20 tracking-widest" style={s.text}>fig.</span>
             </div>
         </div>
-        <figcaption className={`text-center text-[11px] leading-relaxed italic ${COLORS.subtle} px-10 opacity-75`}>
+        <figcaption className="text-center text-[11px] leading-relaxed italic px-10 opacity-75" style={s.subtle}>
             {caption}
         </figcaption>
     </figure>
@@ -56,11 +68,16 @@ const ImageFrame = ({ caption, alt }) => (
 
 const Breadcrumbs = ({ onBack }) => (
     <nav className="flex items-center gap-4 mb-16 text-[11px] font-sans lowercase tracking-widest">
-        <button onClick={onBack} className={`flex items-center gap-2 ${COLORS.subtle} hover:text-[#8E5342] transition-colors`}>
+        <button onClick={onBack}
+            className="flex items-center gap-2 transition-colors"
+            style={s.subtle}
+            onMouseEnter={e => e.currentTarget.style.color = 'var(--theme-accent2)'}
+            onMouseLeave={e => e.currentTarget.style.color = 'var(--theme-subtle)'}
+        >
             <ArrowLeft size={14} /> projects
         </button>
-        <span className={COLORS.subtle}>/</span>
-        <span className="font-bold">electrospray deposition</span>
+        <span style={s.subtle}>/</span>
+        <span className="font-bold" style={s.text}>electrospray deposition</span>
     </nav>
 );
 
@@ -71,42 +88,50 @@ export default function ProjectDetail() {
     const navigate = useNavigate();
 
     return (
-        <div className={`min-h-screen ${COLORS.bg} ${COLORS.text} font-serif selection:bg-[#E2DDD0]`}>
+        <div className="min-h-screen font-serif" style={s.bg}>
             <div className="max-w-2xl mx-auto px-6 py-16">
 
-                <Breadcrumbs onBack={() => navigate(-1)} />
+                {/* Top bar: breadcrumbs + theme toggle */}
+                <div className="flex flex-col items-center gap-5 mb-16">
+                    <Breadcrumbs onBack={() => navigate(-1)} />
+                    <ThemeToggle />
+                </div>
 
                 {/* Title Section */}
                 <header className="mb-20 space-y-6">
-                    <h1 className="text-4xl font-serif lowercase italic leading-tight tracking-tighter">
+                    <h1 className="text-4xl font-serif lowercase italic leading-tight tracking-tighter" style={s.text}>
                         charge transport in electrospray deposition of nanoparticle aggregates
                     </h1>
-                    <div className="flex flex-wrap items-center gap-x-8 gap-y-2 text-[10px] uppercase tracking-[0.2em] font-sans font-black opacity-40">
+                    <div className="flex flex-wrap items-center gap-x-8 gap-y-2 text-[10px] uppercase tracking-[0.2em] font-sans font-black opacity-40" style={s.text}>
                         <span>date: jan 2026</span>
                         <span>tag: electrospray deposition</span>
                         <span>status: ongoing</span>
                     </div>
                 </header>
 
-                {/* Mode Toggle — soft serif underline style */}
+                {/* Mode Toggle */}
                 <div className="flex justify-center mb-16">
                     <div className="flex items-center gap-10">
                         <button
                             onClick={() => setIsTechnical(false)}
-                            className={`pb-2 font-serif italic text-base tracking-wide transition-all border-b ${!isTechnical
-                                    ? 'border-[#8E5342] text-[#8E5342]'
-                                    : 'border-transparent opacity-30 hover:opacity-60'
-                                }`}
+                            className="pb-2 font-serif italic text-base tracking-wide transition-all border-b"
+                            style={{
+                                borderColor: !isTechnical ? 'var(--theme-accent2)' : 'transparent',
+                                color: !isTechnical ? 'var(--theme-accent2)' : 'var(--theme-subtle)',
+                                opacity: !isTechnical ? 1 : 0.35,
+                            }}
                         >
                             abstract
                         </button>
-                        <span className="opacity-20 text-xs select-none">·</span>
+                        <span className="opacity-20 text-xs select-none" style={s.subtle}>·</span>
                         <button
                             onClick={() => setIsTechnical(true)}
-                            className={`pb-2 font-serif italic text-base tracking-wide transition-all border-b ${isTechnical
-                                    ? 'border-[#8E5342] text-[#8E5342]'
-                                    : 'border-transparent opacity-30 hover:opacity-60'
-                                }`}
+                            className="pb-2 font-serif italic text-base tracking-wide transition-all border-b"
+                            style={{
+                                borderColor: isTechnical ? 'var(--theme-accent2)' : 'transparent',
+                                color: isTechnical ? 'var(--theme-accent2)' : 'var(--theme-subtle)',
+                                opacity: isTechnical ? 1 : 0.35,
+                            }}
                         >
                             technical
                         </button>
@@ -114,8 +139,8 @@ export default function ProjectDetail() {
                 </div>
 
                 {/* Article Body */}
-                <article className="space-y-8 text-[17px] leading-relaxed opacity-90">
-                    <p className="italic text-lg border-l-2 border-[#CDC7B9] pl-8 py-2">
+                <article className="space-y-8 text-[17px] leading-relaxed opacity-90" style={s.text}>
+                    <p className="italic text-lg border-l-2 pl-8 py-2" style={{ ...s.border, ...s.text }}>
                         this project investigates how epistemic gaps in high-energy physics are represented visually. we argue that the way we map data fundamentally biases our understanding of the underlying topology.
                     </p>
 
@@ -126,7 +151,7 @@ export default function ProjectDetail() {
                     {/* Technical Section (Conditional) */}
                     {isTechnical ? (
                         <div className="animate-in fade-in duration-500 space-y-8">
-                            <h4 className={`text-xs font-sans font-black uppercase tracking-[0.3em] ${COLORS.accent2} pt-8`}>
+                            <h4 className="text-xs font-sans font-black uppercase tracking-[0.3em] pt-8" style={s.accent2}>
                                 mathematical framework
                             </h4>
                             <p>
@@ -163,19 +188,35 @@ export default function ProjectDetail() {
                 </article>
 
                 {/* Footer Navigation */}
-                <footer className="mt-32 pt-12 border-t border-[#9E9690] space-y-12">
+                <footer className="mt-32 pt-12 border-t space-y-12" style={s.border}>
                     <div className="flex justify-between items-center">
-                        <button className={`flex items-center gap-3 text-[11px] font-sans lowercase tracking-widest ${COLORS.subtle} hover:text-[#8E5342] transition-colors`}>
+                        <button
+                            className="flex items-center gap-3 text-[11px] font-sans lowercase tracking-widest transition-colors"
+                            style={s.subtle}
+                            onMouseEnter={e => e.currentTarget.style.color = 'var(--theme-accent2)'}
+                            onMouseLeave={e => e.currentTarget.style.color = 'var(--theme-subtle)'}
+                        >
                             <ArrowLeft size={16} /> previous: quantum history
                         </button>
-                        <button className={`flex items-center gap-3 text-[11px] font-sans lowercase tracking-widest ${COLORS.subtle} hover:text-[#8E5342] transition-colors`}>
+                        <button
+                            className="flex items-center gap-3 text-[11px] font-sans lowercase tracking-widest transition-colors"
+                            style={s.subtle}
+                            onMouseEnter={e => e.currentTarget.style.color = 'var(--theme-accent2)'}
+                            onMouseLeave={e => e.currentTarget.style.color = 'var(--theme-subtle)'}
+                        >
                             next: ethics of observation <ArrowRight size={16} />
                         </button>
                     </div>
 
-                    <div className={`flex justify-center gap-8 pt-12 ${COLORS.subtle}`}>
-                        <Share2 size={16} className="cursor-pointer hover:text-[#8E5342] transition-colors" />
-                        <Info size={16} className="cursor-pointer hover:text-[#8E5342] transition-colors" />
+                    <div className="flex justify-center gap-8 pt-12" style={s.subtle}>
+                        <Share2 size={16} className="cursor-pointer transition-colors"
+                            onMouseEnter={e => e.currentTarget.style.color = 'var(--theme-accent2)'}
+                            onMouseLeave={e => e.currentTarget.style.color = 'var(--theme-subtle)'}
+                        />
+                        <Info size={16} className="cursor-pointer transition-colors"
+                            onMouseEnter={e => e.currentTarget.style.color = 'var(--theme-accent2)'}
+                            onMouseLeave={e => e.currentTarget.style.color = 'var(--theme-subtle)'}
+                        />
                     </div>
                 </footer>
 
