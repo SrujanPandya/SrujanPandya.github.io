@@ -8,7 +8,7 @@ const RESEARCH = [
     {
         id: 1,
         year: '2026',
-        title: 'multiscale modeling & electrospray deposition in soft microrobotics',
+        title: 'charge relaxation in porous dielectric deposit in electrospray',
         journal: 'phd research · university at buffalo'
     },
     {
@@ -17,12 +17,12 @@ const RESEARCH = [
         title: 'CNN-autoencoder models for lossless LWD sensor data compression',
         journal: 'capstone · schlumberger (slb)'
     },
-    {
-        id: 3,
-        year: '2021',
-        title: 'patient-integrated joint impedance control for lower-limb assistance',
-        journal: 'timetooth technologies · iit gandhinagar'
-    },
+    // {
+    //     id: 3,
+    //     year: '2021',
+    //     title: '',
+    //     journal: 'timetooth technologies · iit gandhinagar'
+    // },
 ];
 
 // --- PROJECTS ---
