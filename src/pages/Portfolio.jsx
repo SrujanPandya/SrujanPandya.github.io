@@ -175,6 +175,55 @@ export default function Portfolio() {
 
                             <div className="space-y-14">
                                 {filteredResearch.length > 0 ? (
+                                    filteredResearch.map((item) => {
+                                        // 1. Define the inner content so we don't repeat code
+                                        const Content = (
+                                            <>
+                                                <div className="flex items-baseline gap-4 mb-2">
+                                                    <span className="text-[10px] font-sans font-bold" style={s.subtle}>{item.year}</span>
+                                                    <h3 className="text-lg lowercase leading-tight transition-colors" style={s.text}
+                                                        onMouseEnter={e => e.currentTarget.style.color = 'var(--theme-accent2)'}
+                                                        onMouseLeave={e => e.currentTarget.style.color = 'var(--theme-text)'}
+                                                    >
+                                                        {item.title}
+                                                    </h3>
+                                                </div>
+                                                <div className="pl-14 flex items-center gap-3">
+                                                    <span className="text-[10px] uppercase tracking-widest font-sans font-bold italic" style={s.subtle}>{item.journal}</span>
+                                                    {/* Only show the external icon if a link exists */}
+                                                    {item.link && (
+                                                        <ExternalLink size={12} className="opacity-0 group-hover:opacity-60 transition-opacity" style={s.accent2} />
+                                                    )}
+                                                </div>
+                                            </>
+                                        );
+
+                                        // 2. Render as a link if item.link exists, otherwise render as a regular div
+                                        return item.link ? (
+                                            <a 
+                                                key={item.id} 
+                                                href={item.link} 
+                                                target="_blank" 
+                                                rel="noopener noreferrer" 
+                                                className="block group cursor-pointer"
+                                            >
+                                                {Content}
+                                            </a>
+                                        ) : (
+                                            <div key={item.id} className="block group">
+                                                {Content}
+                                            </div>
+                                        );
+                                    })
+                                ) : (
+                                    <p className="text-center text-sm lowercase" style={s.subtle}>
+                                        no results for "{searchQuery}"
+                                    </p>
+                                )}
+                            </div>
+                            
+                            {/* <div className="space-y-14">
+                                {filteredResearch.length > 0 ? (
                                     filteredResearch.map((item) => (
                                         <div key={item.id} className="group cursor-pointer">
                                             <div className="flex items-baseline gap-4 mb-2">
@@ -197,7 +246,7 @@ export default function Portfolio() {
                                         no results for "{searchQuery}"
                                     </p>
                                 )}
-                            </div>
+                            </div> */}
                         </div>
                     )}
 
