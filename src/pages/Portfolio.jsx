@@ -15,7 +15,7 @@ const RESEARCH = [
         id: 2,
         year: '2024',
         title: 'CNN-autoencoder models for lossless LWD sensor data compression',
-        journal: 'capstone · schlumberger (slb)'
+        journal: 'capstone · schlumberger (slb)',
         link: 'https://drive.google.com/file/d/17Jk5EkDvK5k5azNoBadxWGcp781tPLn9/view?usp=sharing'
     },
     // {
