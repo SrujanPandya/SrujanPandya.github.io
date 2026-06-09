@@ -1,6 +1,6 @@
 # Research Portfolio
 
-A minimal, elegant personal portfolio for a PhD researcher. Built with **React 18**, **Vite**, and **Tailwind CSS**. Designed with a Kindle-inspired warm palette.
+Hi, I am Srujan. A PhD student at University at Buffalo (SUNY). This is my portfolio built with **React 18**, **Vite**, and **Tailwind CSS**.
 
 ## Project Structure
 
