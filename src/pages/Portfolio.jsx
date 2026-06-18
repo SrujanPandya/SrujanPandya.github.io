@@ -114,7 +114,7 @@ export default function Portfolio() {
                 <div className="text-center mb-20 animate-in fade-in zoom-in duration-1000">
                     <h1 className="text-4xl font-serif lowercase mb-3 tracking-tighter italic" style={s.text}>Srujan Pandya</h1>
                     <p className="text-[12px] font-sans lowercase tracking-[0.25em] font-medium" style={s.subtle}>
-                        phd student • mechanical engineering • soft-matter physics
+                        phd • university at buffalo • soft-matter physics
                     </p>
                 </div>
 
@@ -126,10 +126,9 @@ export default function Portfolio() {
                         <div className="animate-in slide-in-from-bottom-2 duration-700 space-y-20">
                             <section className="text-center space-y-8">
                                 <p className="text-xl leading-relaxed lowercase opacity-90 italic max-w-lg mx-auto" style={s.text}>
-                                    designing systems at the boundary of{' '}
-                                    <span style={s.accent1}>control theory</span>
-                                    {' '}and soft robotics. exploring multiscale modeling and electrospray deposition at the university at buffalo.
-                                </p>
+                                    modeling {' '}
+                                    <span style={s.accent1}>soft-matter</span>
+                                    {' '} systems for applications in advanced manufacturing of thin films. exploring the nature of relaxation in charged, porous, dielectric deposits formed from nanoparticle aggregates.
                                 <div className="h-px w-16 mx-auto" style={s.divider} />
                             </section>
 
@@ -142,11 +141,11 @@ export default function Portfolio() {
                                 <ul className="space-y-6 text-sm lowercase" style={s.subtle}>
                                     <li className="flex gap-4 group">
                                         <span className="font-bold group-hover:translate-x-1 transition-transform" style={s.accent1}>→</span>
-                                        <span>phd research in soft microrobotics & multiscale modeling, university at buffalo</span>
+                                        <span>investigating electrospray deposition processes</span>
                                     </li>
                                     <li className="flex gap-4 group">
                                         <span className="font-bold group-hover:translate-x-1 transition-transform" style={s.accent1}>→</span>
-                                        <span>investigating electrospray deposition processes with lab: sail, advisor: dr. xin yong</span>
+                                        <span>phd in soft-matter physics begins at university at buffalo</span>
                                     </li>
                                 </ul>
                             </section>
@@ -292,7 +291,8 @@ export default function Portfolio() {
 
                                 <div className="mb-1 flex items-baseline gap-3">
                                     <h4 className="font-serif italic text-lg lowercase" style={s.text}>barely an opinion</h4>
-                                    <span className="text-[9px] uppercase tracking-[0.25em] font-sans opacity-30" style={s.subtle}>substack</span>
+                                    <span className="text-[9px] uppercase tracking-[0.25em] font-sans text-neutral-500 dark:text-neutral-400"> substack </span>
+                                    {/* <span className="text-[9px] uppercase tracking-[0.25em] font-sans opacity-60" style={s.subtle}>substack</span> */}
                                 </div>
                                 <p className="text-[12px] font-sans lowercase leading-relaxed mb-6 max-w-sm" style={s.subtle}>
                                     i cannot give everyone the story they want. but i am trying hard to give everyone the story they need.
