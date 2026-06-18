@@ -129,6 +129,7 @@ export default function Portfolio() {
                                     modeling {' '}
                                     <span style={s.accent1}>soft-matter</span>
                                     {' '} systems for applications in advanced manufacturing of thin films. exploring the nature of relaxation in charged, porous, dielectric deposits formed from nanoparticle aggregates.
+                                </p>
                                 <div className="h-px w-16 mx-auto" style={s.divider} />
                             </section>
 
