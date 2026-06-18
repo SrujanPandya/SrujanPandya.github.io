@@ -8,7 +8,7 @@ const RESEARCH = [
     {
         id: 1,
         year: '2026',
-        title: 'charge relaxation in porous dielectric deposit in electrospray',
+        title: 'solving charge transport in porous dielectric deposit',
         journal: 'phd research · university at buffalo'
     },
     {
@@ -50,8 +50,8 @@ const PROJECTS = [
 
 // --- WRITING ---
 const WRITING = [
-    { id: 1, title: 'why scientists should read more poetry', platform: 'substack', date: 'oct 24', link: 'https://srujanpandya.substack.com' },
-    { id: 2, title: 'the crisis of reproducibility', platform: 'internal', date: 'sep 24', link: '#' },
+    { id: 1, title: 'The Materialist vs The Consumer', platform: 'substack', date: 'feb 26', link: 'https://srujanpandya.substack.com/p/the-materialist-vs-the-consumer' },
+    { id: 2, title: 'Dealing with Death', platform: 'substack', date: 'apr 24', link: 'https://srujanpandya.substack.com/p/dealing-with-death' },
 ];
 
 // PDF path — served from /public by Vite
