@@ -1,64 +1,42 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-// The three palette IDs available in the toggle
+// Enhancement: simplified to two complementary editorial palettes: dark ink + warm paper.
 export const THEMES = {
   DEEP_FLUIDITY: 'deep-fluidity',
-  CARBON_CHROME: 'carbon-chrome',
-  SOFT_ROBOTICS: 'soft-robotics',
-};
-
-export const THEME_META = {
-  [THEMES.DEEP_FLUIDITY]: {
-    label: 'Dark — Deep Fluidity',
-    shortLabel: 'Dark',
-    swatches: ['#111110', '#C4973C', '#F2EFE8'],
-  },
-  [THEMES.CARBON_CHROME]: {
-    label: 'Dim — Carbon & Chrome',
-    shortLabel: 'Dim',
-    swatches: ['#161819', '#A8B8C8', '#EAEEF2'],
-  },
-  [THEMES.SOFT_ROBOTICS]: {
-    label: 'Light — Soft Robotics',
-    shortLabel: 'Light',
-    swatches: ['#E8EBE4', '#4A6A43', '#1A2018'],
-  },
+  ACADEMIC_PARCHMENT: 'academic-parchment',
 };
 
 const ThemeContext = createContext(null);
+const STORAGE_KEY = 'portfolio-theme';
+
+function normalizeStoredTheme(value) {
+  if (Object.values(THEMES).includes(value)) return value;
+
+  // Migration: legacy "dim" and "light" themes become the new paper theme.
+  if (value === 'carbon-chrome' || value === 'soft-robotics') return THEMES.ACADEMIC_PARCHMENT;
+  return THEMES.DEEP_FLUIDITY;
+}
 
 export function ThemeProvider({ children }) {
-  const [theme, setThemeState] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('portfolio-theme') || THEMES.DEEP_FLUIDITY;
-    }
-    return THEMES.DEEP_FLUIDITY;
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === 'undefined') return THEMES.DEEP_FLUIDITY;
+    return normalizeStoredTheme(window.localStorage.getItem(STORAGE_KEY));
   });
 
-  // Apply data-theme attribute and persist to localStorage whenever theme changes
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('portfolio-theme', theme);
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem(STORAGE_KEY, theme);
   }, [theme]);
 
-  // Apply on mount so SSR/hydration flash is avoided
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, []);
-
-  const setTheme = (newTheme) => {
-    setThemeState(newTheme);
-  };
-
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, themes: THEMES, themeMeta: THEME_META }}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );
 }
 
 export function useTheme() {
-  const ctx = useContext(ThemeContext);
-  if (!ctx) throw new Error('useTheme must be used within ThemeProvider');
-  return ctx;
+  const context = useContext(ThemeContext);
+  if (!context) throw new Error('useTheme must be used within ThemeProvider');
+  return context;
 }

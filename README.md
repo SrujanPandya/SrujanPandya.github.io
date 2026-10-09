@@ -1,116 +1,150 @@
-# Research Portfolio
+# Srujan Pandya — Research Portfolio
 
-Hi, I am Srujan. A PhD student at University at Buffalo (SUNY). This is my portfolio built with **React 18**, **Vite**, and **Tailwind CSS**.
+A restrained research-and-writing portfolio for **Srujan Pandya**, built with React 18, Vite, React Router, Tailwind CSS, and a small custom editorial design system.
 
-## Project Structure
+The 2026 refresh keeps the original site's quiet single-column aesthetic while changing the architecture from one large tabbed component into a routed, data-driven site that is easier to maintain throughout a PhD.
 
-```
-research-portfolio/
+## What the site now contains
+
+- `/` — editorial homepage with current research, latest writing, a selected project, and current updates
+- `/research` — current and previous research index
+- `/research/:slug` — individual research notes
+- `/projects` — selected engineering projects
+- `/projects/:slug` — project detail pages
+- `/writing` — curated Substack index and subscription link
+- `/cv` — searchable native HTML CV plus the downloadable PDF
+
+## Project structure
+
+```text
+.
+├── .github/workflows/deploy.yml     # GitHub Pages deployment
+├── design-experiments/              # Preserved, non-production prototypes
 ├── public/
-│   └── favicon.svg          # Site favicon
+│   ├── 404.html                     # Clean-route fallback for GitHub Pages
+│   ├── Srujan_Pandya_Resume.pdf     # Canonical downloadable résumé
+│   ├── favicon.svg
+│   ├── og-thumbnail.png
+│   ├── robots.txt
+│   └── sitemap.xml
+├── scripts/
+│   └── sync-substack.mjs            # Build-time RSS → local JSON sync
 ├── src/
+│   ├── components/
+│   │   ├── DetailPage.jsx
+│   │   ├── EntryList.jsx
+│   │   ├── PageIntro.jsx
+│   │   ├── RouteMeta.jsx
+│   │   ├── ScrollToTop.jsx
+│   │   ├── SiteFooter.jsx
+│   │   ├── SiteHeader.jsx
+│   │   ├── SiteLayout.jsx
+│   │   └── ThemeToggle.jsx
+│   ├── data/
+│   │   ├── cv.js
+│   │   ├── projects.js
+│   │   ├── research.js
+│   │   ├── site.js
+│   │   ├── writing.js
+│   │   └── generated/substackPosts.json
 │   ├── pages/
-│   │   ├── Portfolio.jsx    # Main portfolio page (home, research, projects, writing, cv)
-│   │   └── ProjectDetail.jsx# Individual project detail page
-│   ├── App.jsx              # Route definitions
-│   ├── index.css            # Tailwind directives + custom animations
-│   └── main.jsx             # React root entry point
-├── index.html               # HTML entry point (Google Fonts, SEO meta)
-├── package.json
-├── vite.config.js
-├── tailwind.config.js
-└── postcss.config.js
+│   │   ├── CVPage.jsx
+│   │   ├── HomePage.jsx
+│   │   ├── NotFoundPage.jsx
+│   │   ├── ProjectDetailPage.jsx
+│   │   ├── ProjectsPage.jsx
+│   │   ├── ResearchDetailPage.jsx
+│   │   ├── ResearchPage.jsx
+│   │   └── WritingPage.jsx
+│   ├── App.jsx
+│   ├── ThemeContext.jsx
+│   ├── index.css
+│   └── main.jsx
+├── CONTENT_GUIDE.md
+├── UPDATES.md
+└── package.json
 ```
 
-## Getting Started
+## Local development
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) v18 or higher
-- npm (comes with Node.js)
-
-### Install & Run Locally
+Requirements: Node.js 18+ and npm.
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server (hot reload)
 npm run dev
 ```
 
-Visit `http://localhost:5173` in your browser.
+Then open `http://localhost:5173`.
 
-### Build for Production
+## Production build
 
 ```bash
 npm run build
 ```
 
-Output goes to the `dist/` folder. Preview it locally with:
+The `prebuild` hook first runs the Substack RSS synchronizer. If Substack is unavailable, the sync script logs a warning and the build continues using the committed fallback JSON.
+
+To preview the final build:
 
 ```bash
 npm run preview
 ```
 
----
+## Substack integration
 
-## Deploying to GitHub Pages
+The writing page does not embed the Substack UI. Instead, the build script fetches:
 
-### Option A — Deploy `dist/` manually (simplest)
-
-1. Build the project: `npm run build`
-2. Push the contents of `dist/` to the `gh-pages` branch of your repository
-3. In your repo → **Settings → Pages**, set source to the `gh-pages` branch, root `/`
-
-### Option B — Use the `gh-pages` npm package (recommended)
-
-```bash
-# Install the deploy helper (one time)
-npm install --save-dev gh-pages
-
-# Add this to package.json "scripts":
-#   "deploy": "gh-pages -d dist"
-
-# Build and deploy in one step
-npm run build && npx gh-pages -d dist
+```text
+https://srujanpandya.substack.com/feed
 ```
 
-### Important: Repository Name
+and stores the newest posts in:
 
-- If your repo is `yourusername.github.io`, the site root is `/`. The current `vite.config.js` (`base: './'`) works for this.
-- If your repo has a different name (e.g. `portfolio`), your site will be at `yourusername.github.io/portfolio/`. In that case, update `vite.config.js`:
-  ```js
-  base: '/portfolio/',
-  ```
+```text
+src/data/generated/substackPosts.json
+```
 
----
+You can manually refresh it with:
 
-## Customization Checklist
+```bash
+npm run sync:writing
+```
 
-Before publishing, replace the placeholder content in `src/pages/Portfolio.jsx`:
+This keeps the live portfolio fast and static while allowing new writing to appear automatically on production builds.
 
-- [ ] **Name** — search for `alex rivers` and replace with your name
-- [ ] **Tagline** — update `phd student • philosophy of science`
-- [ ] **Bio** — update the italic intro paragraph on the Home tab
-- [ ] **Status items** — replace conference/dissertation placeholders
-- [ ] **Research list** — fill in the `RESEARCH` array with your actual papers
-- [ ] **Projects** — fill in the `PROJECTS` array
-- [ ] **Writing** — fill in the `WRITING` array
-- [ ] **Footer location** — replace `cambridge, uk`
-- [ ] **Footer links** — update `mailto:`, Twitter, and GitHub hrefs
-- [ ] **CV** — replace the placeholder in the CV tab with an `<iframe>` or PDF link
-- [ ] **Copyright year** — update `© 2024`
-- [ ] **Favicon** — edit `public/favicon.svg` with your actual initials
+## GitHub Pages deployment
 
----
+A GitHub Actions workflow is included at `.github/workflows/deploy.yml`.
 
-## Tech Stack
+1. Push the repository to the `main` branch of `SrujanPandya.github.io`.
+2. In **Settings → Pages**, select **GitHub Actions** as the source.
+3. The workflow installs dependencies, syncs writing, builds the site, and deploys `dist/`.
 
-| Tool | Purpose |
-|---|---|
-| [Vite](https://vitejs.dev/) | Build tool & dev server |
-| [React 18](https://react.dev/) | UI framework |
-| [React Router v6](https://reactrouter.com/) | Client-side routing |
-| [Tailwind CSS v3](https://tailwindcss.com/) | Utility-first styling |
-| [lucide-react](https://lucide.dev/) | Icon set |
-| [Google Fonts](https://fonts.google.com/) | Lora (serif) + Inter (sans) |
+### Clean routes on GitHub Pages
+
+The app uses `BrowserRouter`, so links look like `/research` rather than `/#/research`.
+
+GitHub Pages does not provide SPA rewrite rules, so `public/404.html` redirects deep-link requests through the root document and `index.html` restores the original pathname before React starts. This is sufficient for normal navigation and direct links on GitHub Pages.
+
+If the site later moves to a host with rewrite support (Netlify, Vercel, Cloudflare Pages, etc.), use a conventional SPA rewrite and remove the `404.html` workaround.
+
+## Themes
+
+The original three-theme selector has been simplified to two complementary editorial palettes:
+
+- **Deep Fluidity** — near-black, ivory, warm gold
+- **Academic Parchment** — warm paper, graphite, clay
+
+The stored theme is applied in `index.html` before React/CSS paint to prevent a visible theme flash.
+
+## Content maintenance
+
+Most portfolio updates no longer require editing page components. See **[CONTENT_GUIDE.md](./CONTENT_GUIDE.md)** for the exact files to edit when adding research, projects, writing, or CV content.
+
+For a complete implementation log, see **[UPDATES.md](./UPDATES.md)**.
+
+## Important content note
+
+The former `ProjectDetail.jsx` contained placeholder text about quantum mapping, high-energy physics, dark matter, and an invented uncertainty coefficient. That content has been removed from the production site and preserved only inside `design-experiments/project_page.js` as design history.
+
+The current doctoral research page intentionally stays high-level because the repository does not contain verified technical methods, equations, figures, or results for that work. Add those only when you are ready to publish them.

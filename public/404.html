@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirecting…</title>
+  <script>
+    // Enhancement: GitHub Pages has no rewrite rules. Preserve a clean deep route by redirecting through index.html.
+    (function () {
+      var path = window.location.pathname;
+      var search = window.location.search ? window.location.search.slice(1) : '';
+      var target = '/?p=' + encodeURIComponent(path) + (search ? '&q=' + encodeURIComponent(search) : '');
+      window.location.replace(target);
+    })();
+  </script>
+</head>
+<body></body>
+</html>

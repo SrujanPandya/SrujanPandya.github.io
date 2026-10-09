@@ -1,38 +1,53 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- SEO -->
-  <title>Srujan Pandya's Portfolio</title>
-  <meta name="description"
-    content="Personal research portfolio of Srujan Pandya, PhD student in Mechanical Engineering at University at Buffalo. Working on electrospray, microfluidics, and multiscale modeling, electrospray deposition, and soft microrobotics." />
+  <!-- Enhancement: stronger default metadata; route-specific values are updated client-side. -->
+  <title>Srujan Pandya — PhD Researcher</title>
+  <meta name="description" content="Research, engineering projects, and writing by Srujan Pandya, a PhD researcher in Mechanical Engineering at the University at Buffalo." />
   <meta name="author" content="Srujan Mayank Pandya" />
+  <meta name="theme-color" content="#111110" />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Srujan Mayank Pandya – PhD Researcher" />
-  <meta property="og:description"
-    content="PhD @ UB. Soft-Matter Physics." />
+  <meta property="og:title" content="Srujan Pandya — PhD Researcher" />
+  <meta property="og:description" content="Research, engineering projects, and writing by Srujan Pandya." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://srujanpandya.github.io/" />
   <meta property="og:image" content="https://srujanpandya.github.io/og-thumbnail.png" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="canonical" href="https://srujanpandya.github.io/" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- Google Fonts: Lora (serif) + Inter (sans) -->
+  <!-- Enhancement: set stored theme before CSS/React paint to avoid a dark/light flash. -->
+  <script>
+    (function () {
+      var stored = localStorage.getItem('portfolio-theme');
+      var theme = stored === 'academic-parchment' || stored === 'soft-robotics' || stored === 'carbon-chrome'
+        ? 'academic-parchment'
+        : 'deep-fluidity';
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+
+  <!-- GitHub Pages SPA restoration: public/404.html temporarily stores the requested route in ?p=. -->
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var route = params.get('p');
+      if (!route) return;
+      var query = params.get('q');
+      var restored = route + (query ? '?' + query : '') + window.location.hash;
+      window.history.replaceState(null, '', restored);
+    })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
 </head>
-
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
-
 </html>

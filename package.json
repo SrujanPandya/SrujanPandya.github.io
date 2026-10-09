@@ -1,10 +1,12 @@
 {
-  "name": "research-portfolio",
+  "name": "srujan-pandya-portfolio",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "sync:writing": "node scripts/sync-substack.mjs",
+    "prebuild": "npm run sync:writing",
     "build": "vite build",
     "preview": "vite preview"
   },
